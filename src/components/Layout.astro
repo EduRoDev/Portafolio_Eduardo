@@ -16,6 +16,15 @@
 <style is:global>
     @import "tailwindcss";
 
-    
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 120px; 
+    }
+
+    @supports (scroll-behavior: smooth) {
+        html {
+            scroll-behavior: smooth;
+        }
+    }
 </style>
 

@@ -3,30 +3,57 @@
 ---
 
 <section class="flex justify-center items-center py-6">
-    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-4xl">
-        <div class="bg-purple-500 rounded-full px-8 py-4 shadow-2xl">
-            <ul class="flex flex-row justify-center items-center space-x-8 text-base font-medium">
-                <li class="transform transition-all duration-200 ease-in-out hover:scale-110 cursor-pointer">
-                    <a class="text-white hover:text-purple-200 font-semibold px-3 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-200" href="#inicio">
-                        Inicio
-                    </a>
-                </li>
-                <li class="transform transition-all duration-200 ease-in-out hover:scale-110 cursor-pointer">
-                    <a class="text-white hover:text-purple-200 font-semibold px-3 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-200" href="#tecnologias">
-                        Tecnologias
-                    </a>
-                </li>
-                <li class="transform transition-all duration-200 ease-in-out hover:scale-110 cursor-pointer">
-                    <a class="text-white hover:text-purple-200 font-semibold px-3 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-200" href="#proyectos">
-                        Proyectos
-                    </a>
-                </li>
-                <li class="transform transition-all duration-200 ease-in-out hover:scale-110 cursor-pointer">
-                    <a class="text-white hover:text-purple-200 font-semibold px-3 py-2 rounded-lg hover:bg-purple-600 transition-colors duration-200" href="#contacto">
-                        Contacto
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</section>
+        <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-2xl">
+            <div class="nav-blur bg-purple-300 border border-neutral-200/50 rounded-2xl px-6 py-3 shadow-lg shadow-neutral-900/5">
+                <ul class="flex flex-row justify-center items-center gap-1 text-lg font-bold">
+                    <li class="transition-all duration-200 ease-out">
+                        <a class="nav-link text-neutral-700 hover:text-neutral-900 font-bold px-4 py-2 rounded-lg hover:bg-purple-400/80 transition-all duration-200 block" href="#inicio">
+                            Inicio
+                        </a>
+                    </li>
+                    <li class="transition-all duration-200 ease-out">
+                        <a class="nav-link text-neutral-700 hover:text-neutral-900 font-bold px-4 py-2 rounded-lg hover:bg-purple-400/80 transition-all duration-200 block" href="#tecnologias">
+                            Tecnologías
+                        </a>
+                    </li>
+                    <li class="transition-all duration-200 ease-out">
+                        <a class="nav-link text-neutral-700 hover:text-neutral-900 font-bold px-4 py-2 rounded-lg hover:bg-purple-400/80 transition-all duration-200 block" href="#proyectos">
+                            Proyectos
+                        </a>
+                    </li>
+                    <li class="transition-all duration-200 ease-out">
+                        <a class="nav-link text-neutral-700 hover:text-neutral-900 font-bold px-4 py-2 rounded-lg hover:bg-purple-400/80 transition-all duration-200 block" href="#contacto">
+                            Contacto
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const targetId = link.getAttribute('href');
+                if (!targetId) return;
+                
+                const targetSection = document.querySelector(targetId) as HTMLElement;
+                
+                if (targetSection) {
+                    const navbarHeight = 120; 
+                    const targetPosition = targetSection.offsetTop - navbarHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    });
+</script>
