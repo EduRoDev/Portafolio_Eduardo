@@ -1,0 +1,101 @@
+---
+---
+
+<div id="splash-screen" class="fixed inset-0 z-[9999] w-screen h-screen">    
+    <div id="pokeball-top" class="absolute top-0 left-0 w-full h-[calc(50%-40px)] bg-red-600 origin-bottom z-0"></div>
+    
+    <div id="pokeball-middle" class="absolute top-1/2 left-0 w-full h-20 -translate-y-1/2 bg-black z-10"></div>
+    
+    <div id="pokeball-bottom" class="absolute bottom-0 left-0 w-full h-[calc(50%-40px)] bg-white origin-top z-0"></div>
+
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full bg-black flex items-center justify-center z-20">
+        <button 
+            id="pokeball-button"
+            class="w-32 h-32 rounded-full bg-white border-[10px] border-black flex items-center justify-center cursor-pointer hover:scale-105 transition-transform z-50"
+            aria-label="Abrir Pokébola"
+        >
+            <div class="w-16 h-16 rounded-full bg-gray-200 border-4 border-gray-300"></div>
+        </button>
+    </div>
+
+</div>
+
+<script>
+    import { gsap } from 'gsap';
+
+    const splashScreen = document.getElementById('splash-screen');
+    const pokeballTop = document.getElementById('pokeball-top');
+    const pokeballBottom = document.getElementById('pokeball-bottom');
+    const pokeballMiddle = document.getElementById('pokeball-middle');
+    const pokeballButton = document.getElementById('pokeball-button');
+    const clickText = document.getElementById('click-text');
+
+    document.body.style.overflow = 'hidden';    function openPokeball() {
+        const tl = gsap.timeline({
+            onComplete: () => {
+                splashScreen?.remove();
+                document.body.style.overflow = 'auto';
+                window.dispatchEvent(new CustomEvent('splashScreenClosed'));
+            }
+        });
+
+        tl.to(pokeballButton, {
+            scale: 0.85,
+            duration: 0.1
+        })
+        .to(pokeballButton, {
+            scale: 1.15,
+            duration: 0.2
+        })
+        
+        .to(clickText, {
+            opacity: 0,
+            y: 20,
+            duration: 0.3
+        }, "-=0.2")
+        
+        .to(pokeballButton, {
+            scale: 0,
+            opacity: 0,
+            duration: 0.4
+        }, "+=0.1")
+        .to(pokeballMiddle, {
+            scaleX: 0,
+            opacity: 0,
+            duration: 0.4
+        }, "-=0.2")
+
+        .to(pokeballTop, {
+            y: "-100vh",
+            duration: 1,
+            ease: "power2.in"
+        }, "-=0.2")
+        .to(pokeballBottom, {
+            y: "100vh",
+            duration: 1,
+            ease: "power2.in"
+        }, "-=1")
+        
+        .to(splashScreen, {
+            opacity: 0,
+            duration: 0.3
+        }, "-=0.3");
+    }
+
+    pokeballButton?.addEventListener('click', openPokeball);
+</script>
+
+<style>
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+</style>
