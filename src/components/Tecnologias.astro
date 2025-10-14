@@ -93,36 +93,53 @@
             <div class="carousel-item flex flex-col items-center justify-center min-w-[120px] p-4">
                 <img src="/icons/github.svg" alt="GitHub" class="w-16 h-16 mb-3" />
                 <span class="text-sm font-semibold text-gray-800">GitHub</span>
-            </div>
-        </div>
+            </div>        </div>
     </div>
 </section>
 
-<style>
-    @keyframes scroll {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-50%);
-        }
-    }
+<script>
+    import { gsap } from 'gsap';
 
-    .carousel-track {
-        animation: scroll 30s linear infinite;
-        width: fit-content;
-    }
+    const carouselTrack = document.querySelector('.carousel-track') as HTMLElement;
+    const carouselItems = document.querySelectorAll('.carousel-item') as NodeListOf<HTMLElement>;    if (carouselTrack && carouselItems.length > 0) {
+        const itemWidth = carouselItems[0].offsetWidth + 32; 
+        const totalItems = carouselItems.length / 2;
+        const totalWidth = itemWidth * totalItems;
 
-    .carousel-track:hover {
-        animation-play-state: paused;
-    }
+        const animation = gsap.to(carouselTrack, {
+            x: -totalWidth,
+            duration: 40,
+            ease: "none",
+            repeat: -1,
+            modifiers: {
+                x: gsap.utils.unitize(x => parseFloat(x) % totalWidth)
+            }
+        });
 
-    .carousel-item {
-        flex-shrink: 0;
-        transition: transform 0.3s ease;
-    }
+        carouselTrack.addEventListener('mouseenter', () => {
+            animation.pause();
+        });
 
-    .carousel-item:hover {
-        transform: scale(1.1);
+        carouselTrack.addEventListener('mouseleave', () => {
+            animation.play();
+        });
+
+        carouselItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                gsap.to(item, {
+                    scale: 2,
+                    duration: 0.4,
+                    ease: "power2.out"
+                });
+            });
+
+            item.addEventListener('mouseleave', () => {
+                gsap.to(item, {
+                    scale: 1,
+                    duration: 0.4,
+                    ease: "power2.out"
+                });
+            });
+        });
     }
-</style>
+</script>

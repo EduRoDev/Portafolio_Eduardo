@@ -15,6 +15,31 @@ import SplashScreen from './SplashScreen.astro';
     </body>
 </html>
 
+<script>
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    });
+
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        }, 0);
+    });
+
+    window.addEventListener('beforeunload', () => {
+        window.scrollTo(0, 0);
+    });
+</script>
+
 <style is:global>
     @import "tailwindcss";
 

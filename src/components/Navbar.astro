@@ -3,57 +3,137 @@
 ---
 
 <section class="flex justify-center items-center py-6">
-        <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-2xl">
-            <div class="nav-blur bg-purple-300 border border-neutral-200/50 rounded-2xl px-6 py-3 shadow-lg shadow-neutral-900/5">
-                <ul class="flex flex-row justify-center items-center gap-1 text-lg font-bold">
-                    <li class="transition-all duration-200 ease-out">
-                        <a class="nav-link text-neutral-700 hover:text-neutral-900 font-bold px-4 py-2 rounded-lg hover:bg-purple-400/80 transition-all duration-200 block" href="#inicio">
-                            Inicio
-                        </a>
-                    </li>
-                    <li class="transition-all duration-200 ease-out">
-                        <a class="nav-link text-neutral-700 hover:text-neutral-900 font-bold px-4 py-2 rounded-lg hover:bg-purple-400/80 transition-all duration-200 block" href="#tecnologias">
-                            Tecnologías
-                        </a>
-                    </li>
-                    <li class="transition-all duration-200 ease-out">
-                        <a class="nav-link text-neutral-700 hover:text-neutral-900 font-bold px-4 py-2 rounded-lg hover:bg-purple-400/80 transition-all duration-200 block" href="#proyectos">
-                            Proyectos
-                        </a>
-                    </li>
-                    <li class="transition-all duration-200 ease-out">
-                        <a class="nav-link text-neutral-700 hover:text-neutral-900 font-bold px-4 py-2 rounded-lg hover:bg-purple-400/80 transition-all duration-200 block" href="#contacto">
-                            Contacto
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </section>
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-3xl">
+        <div class="bg-white/90 backdrop-blur-md border border-purple-200/50 rounded-full px-8 py-4 shadow-xl shadow-purple-900/10">
+            <ul class="flex flex-row justify-center items-center gap-2 text-base font-semibold">
+                <li class="relative">
+                    <a class="nav-link flex items-center gap-2 text-gray-700 hover:text-purple-900 px-5 py-2 rounded-full relative" href="#inicio" data-section="inicio">
+                        <img src="/icons/pokeball.svg" alt="Pokeball" class="pokeball-icon w-5 h-5 hidden" />
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li class="relative">
+                    <a class="nav-link flex items-center gap-2 text-gray-700 hover:text-purple-900 px-5 py-2 rounded-full relative" href="#tecnologias" data-section="tecnologias">
+                        <img src="/icons/pokeball.svg" alt="Pokeball" class="pokeball-icon w-5 h-5 hidden" />
+                        <span>Tecnologías</span>
+                    </a>
+                </li>
+                <li class="relative">
+                    <a class="nav-link flex items-center gap-2 text-gray-700 hover:text-purple-900 px-5 py-2 rounded-full relative" href="#proyectos" data-section="proyectos">
+                        <img src="/icons/pokeball.svg" alt="Pokeball" class="pokeball-icon w-5 h-5 hidden" />
+                        <span>Proyectos</span>
+                    </a>
+                </li>
+                <li class="relative">
+                    <a class="nav-link flex items-center gap-2 text-gray-700 hover:text-purple-900 px-5 py-2 rounded-full relative" href="#contacto" data-section="contacto">
+                        <img src="/icons/pokeball.svg" alt="Pokeball" class="pokeball-icon w-5 h-5 hidden" />
+                        <span>Contacto</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</section>
 
 <script>
+    import { gsap } from "gsap";
+    
     document.addEventListener('DOMContentLoaded', () => {
         const navLinks = document.querySelectorAll('.nav-link');
+        const activeAnimations = new Map();
+        
+        function animatePokeball(pokeball: HTMLElement) {
+            if (activeAnimations.has(pokeball)) {
+                activeAnimations.get(pokeball).kill();
+            }
+            
+            const animation = gsap.to(pokeball, {
+                scale: 1.3,
+                duration: 0.6,
+                ease: "power1.inOut",
+                yoyo: true,
+                repeat: -1
+            });
+            
+            activeAnimations.set(pokeball, animation);
+        }
+        
+        function stopPokeballAnimation(pokeball: HTMLElement) {
+            if (activeAnimations.has(pokeball)) {
+                activeAnimations.get(pokeball).kill();
+                activeAnimations.delete(pokeball);
+                gsap.set(pokeball, { scale: 1.2 });
+            }
+        }
+        
+        function setActiveLink(targetSection: string) {
+            navLinks.forEach(link => {
+                const pokeball = link.querySelector('.pokeball-icon') as HTMLElement;
+                const section = link.getAttribute('data-section');
+                
+                if (section === targetSection) {
+                    if (pokeball) {
+                        pokeball.classList.remove('hidden');
+                        animatePokeball(pokeball);
+                    }
+                    link.classList.add('text-purple-900', 'font-bold');
+                    link.classList.remove('text-gray-700');
+                } else {
+                    if (pokeball) {
+                        pokeball.classList.add('hidden');
+                        stopPokeballAnimation(pokeball);
+                    }
+                    link.classList.remove('text-purple-900', 'font-bold');
+                    link.classList.add('text-gray-700');
+                }
+            });
+        }
         
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 
                 const targetId = link.getAttribute('href');
-                if (!targetId) return;
+                const targetSection = link.getAttribute('data-section');
+                if (!targetId || !targetSection) return;
                 
-                const targetSection = document.querySelector(targetId) as HTMLElement;
+                const targetElement = document.querySelector(targetId) as HTMLElement;
                 
-                if (targetSection) {
+                if (targetElement) {
                     const navbarHeight = 120; 
-                    const targetPosition = targetSection.offsetTop - navbarHeight;
+                    const targetPosition = targetElement.offsetTop - navbarHeight;
                     
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
                     });
+                    
+                    setActiveLink(targetSection);
                 }
             });
+        });
+        
+        setActiveLink('inicio');
+        
+        const sections = document.querySelectorAll('[id]');
+        const observerOptions = {
+            rootMargin: '-120px 0px -70% 0px',
+            threshold: 0
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.getAttribute('id');
+                    if (sectionId) {
+                        setActiveLink(sectionId);
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        sections.forEach(section => {
+            observer.observe(section);
         });
     });
 </script>
