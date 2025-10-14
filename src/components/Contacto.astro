@@ -1,0 +1,138 @@
+<div aria-hidden="true" class="h-8 md:h-16 lg:h-24"></div>
+<section
+    id="contacto"
+    class="scroll-mt-32 pt-36 pb-16 px-4 md:px-8 lg:px-16 bg-white/30 backdrop-blur-sm rounded-2xl shadow-xl"
+>
+    <!-- inicio de formulario -->
+    <div class="w- gap-48 items-center flex p-8 md:p-16 lg:p-24 flex-col lg:flex-row">
+        <form
+            action="https://formspree.io/f/xwprakve"
+            method="POST"
+            class="max-w-2xl flex flex-col gap-4 p-5"
+        >
+            <h2
+                class="text-3xl md:text-4xl lg:text-5xl font-bold text-purple-900 mb-8 text-start"
+            >
+                Contacto
+            </h2>
+            <p class="text-lg md:text-xl text-gray-700 mb-8 text-center">
+                ¿Tienes alguna pregunta o quieres trabajar conmigo? ¡Envíame un
+                mensaje!
+            </p>
+
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-4">
+                    <label for="name">Nombre:</label>
+                    <input
+                        class="flex-1 bg-white/90 backdrop-blur-md border border-purple-200/50 px-3 py-2 rounded-md"
+                        type="text"
+                        id="name"
+                        name="name"
+                        required
+                        placeholder="Aqui tu nombre"
+                    />
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <label for="email">Correo:</label>
+                    <input
+                        class="flex-1 bg-white/90 backdrop-blur-md border border-purple-200/50 px-3 py-2 rounded-md"
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        placeholder="Digita tu correo ejemplo: correo@gmail.com"
+                    />
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <label for="message">Mensaje:</label>
+                    <textarea
+                        class="flex bg-white/90 backdrop-blur-md border border-purple-200/50 px-3 py-2 rounded-md field-sizing-content"
+                        id="message"
+                        name="message"
+                        required
+                        placeholder="Escribe tu mensaje aquí"></textarea>
+                </div>
+            </div>
+
+            <button
+                type="submit"
+                class="bg-purple-200 backdrop-blur-lg px-4 py-2 rounded-xl hover:scale-105 transition-transform shadow-2xl w-fit self-center cursor-pointer
+                hover:bg-purple-300 font-bold text-purple-900 flex items-center gap-2"
+            >
+                <span class="text-sm md:text-base lg:text-lg">
+                    Enviar Mensaje
+                </span>
+            </button>
+        </form>
+        <img
+            src="/images/gengar_bg.gif"
+            alt="gengar animado"
+            class="w-full max-w-xs"
+        />
+    </div> <!-- Fin del contenedor de formulario -->
+</section>
+
+<!-- Modal de confirmación -->
+<div
+    id="modal-confirmacion"
+    class="fixed inset-0 flex items-center justify-center bg-black/40 z-50 opacity-0 pointer-events-none transition-opacity duration-300"
+>
+    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full text-center">
+        <h3 class="text-xl font-bold mb-4 text-purple-900">
+            ¡Mensaje enviado!
+        </h3>
+        <p class="mb-6 text-gray-700">
+            Tu mensaje ha sido enviado correctamente. Pronto me pondré en
+            contacto contigo.
+        </p>
+        <button
+            id="cerrar-modal"
+            class="bg-purple-200 px-4 py-2 rounded-lg hover:bg-purple-300 transition-colors cursor-pointer font-bold text-purple-900"
+            >Cerrar</button
+        >
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById("modal-confirmacion");
+    const cerrarBtn = document.getElementById("cerrar-modal");
+
+    function mostrarModal() {
+        if (modal) {
+            modal.classList.remove("opacity-0", "pointer-events-none");
+            modal.classList.add("opacity-100");
+        }
+    }
+
+    function ocultarModal() {
+        if (modal) {
+            modal.classList.add("opacity-0", "pointer-events-none");
+            modal.classList.remove("opacity-100");
+        }
+    }
+
+    if (cerrarBtn) {
+        cerrarBtn.addEventListener("click", ocultarModal);
+    }
+
+    const form = document.querySelector("form");
+    if (form) {
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const data = new FormData(form);
+
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: data,
+                headers: { Accept: "application/json" },
+            });
+
+            if (response.ok) {
+                form.reset();
+                mostrarModal();
+            }
+        });
+    }
+</script>

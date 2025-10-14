@@ -1,7 +1,7 @@
 ---
 title: "Pokedex"
 author: "Eduardo Andres Solano Rodriguez"
-description: "Aplicativo web donde se muestran mis habilidades para el desarrollo web front end utilizando astro y consumiendo la API oficial de pokemon"
+description: "Aplicativo web donde se muestran mis habilidades para el desarrollo web frontend utilizando astro y consumiendo la API oficial de pokemon"
 time: "20-10-2024"
 img: ""
 ---
