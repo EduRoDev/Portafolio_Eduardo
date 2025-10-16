@@ -2,64 +2,69 @@
 import { getCollection } from "astro:content";
 
 const proyectos = await getCollection('projects')
-
 ---
+
 <section id="proyectos" class="scroll-mt-32 pt-36 pb-16 mb-32 md:mb-36 lg:mb-44">
-    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-purple-600 mb-8 text-center bbh-sans-hegarty-regular">Proyectos</h2>
-    <p class="text-lg md:text-xl text-white mb-16 text-center max-w-3xl mx-auto"> Esta es la seccion donde mostrare mis habilidades y los proyectos que he realizado a lo largo de mi carrera y universidad</p>
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-purple-500 to-purple-400 bg-clip-text text-transparent mb-8 text-center">Proyectos</h2>
+    <p class="text-lg md:text-xl text-gray-300 mb-16 text-center max-w-3xl mx-auto">Esta es la seccion donde mostrare mis habilidades y los proyectos que he realizado a lo largo de mi carrera y universidad</p>
+    
     <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center px-14">
         {proyectos.map((proyecto) => (
-            <article class="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+            <a
+                href={proyecto.data.link ? proyecto.data.link : undefined}
+                target={proyecto.data.link ? "_blank" : undefined}
+                rel={proyecto.data.link ? "noopener noreferrer" : undefined}
+                class="block"
+            >
+                <article class="group relative bg-black/40 backdrop-blur-sm rounded-2xl border border-purple-500/20 overflow-hidden hover:border-purple-500/60 transition-all duration-500 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] hover:-translate-y-2">
                     {proyecto.data.img && (
-                        <div class="relative h-48 overflow-hidden bg-gradient-to-br from-purple-400 to-purple-600">
+                        <div class="relative h-48 overflow-hidden bg-gradient-to-br from-purple-600 to-purple-900">
                             <img 
-                                src={proyecto.data.img} 
+                                src={proyecto.data.img || "/placeholder.svg"} 
                                 alt={proyecto.data.title}
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             />
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </div>
                     )}
                     
-                    <!-- Contenido -->
                     <div class="p-6 space-y-4">
-                        <!-- Header con título y fecha -->
                         <div class="flex items-start justify-between gap-2">
-                            <h3 class="text-xl font-bold text-purple-900 group-hover:text-purple-600 transition-colors duration-300 line-clamp-2">
+                            <h3 class="text-xl font-bold text-white group-hover:text-purple-300 transition-colors duration-300 line-clamp-2">
                                 {proyecto.data.title}
                             </h3>
                             {proyecto.data.time && (
-                                <span class="text-xs text-gray-500 whitespace-nowrap bg-purple-100 px-2 py-1 rounded-full">
+                                <span class="text-xs text-purple-300 whitespace-nowrap bg-purple-500/20 px-3 py-1 rounded-full border border-purple-500/30 group-hover:bg-purple-500/30 transition-colors duration-300">
                                     {proyecto.data.time}
                                 </span>
                             )}
                         </div>
                         
-                        <!-- Descripción -->
-                        <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                        <p class="text-gray-400 text-sm leading-relaxed line-clamp-3 group-hover:text-gray-300 transition-colors duration-300">
                             {proyecto.data.description}
                         </p>
                         
-                        <!-- Footer con autor y botón -->
-                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div class="flex items-center justify-between pt-4 border-t border-purple-500/20">
                             {proyecto.data.author && (
                                 <div class="flex items-center gap-2">
-                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white text-sm font-semibold">
+                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white text-sm font-semibold ring-2 ring-purple-400/30">
                                         {proyecto.data.author.charAt(0).toUpperCase()}
                                     </div>
-                                    <span class="text-sm text-gray-600">{proyecto.data.author}</span>
+                                    <span class="text-sm text-gray-400">{proyecto.data.author}</span>
                                     {proyecto.data.coAuthor && (
-                                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white text-sm font-semibold">   
-                                            {proyecto.data.coAuthor.charAt(0).toUpperCase()}
-                                        </div>
-                                        <span class="text-sm text-gray-600">{proyecto.data.coAuthor}</span>
+                                        <>
+                                            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white text-sm font-semibold ring-2 ring-purple-400/30">   
+                                                {proyecto.data.coAuthor.charAt(0).toUpperCase()}
+                                            </div>
+                                            <span class="text-sm text-gray-400">{proyecto.data.coAuthor}</span>
+                                        </>
                                     )}
                                 </div>
                             )}
-
                         </div>
                     </div>                    
                 </article>
+            </a>
         ))}
     </div>
 </section>

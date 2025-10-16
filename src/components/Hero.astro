@@ -2,45 +2,81 @@
 
 ---
 
-    <div id="inicio" class="flex flex-col md:flex-row-reverse items-center justify-between gap-8 md:gap-16 lg:gap-24 px-8 md:px-16 lg:px-22 py-20 md:py-28 scroll-mt-24 max-w-7xl mx-auto mb-24 md:mb-32 lg:mb-40">    
-        <div class="flex flex-col items-center md:items-end flex-shrink-0">
-            <img
-                id="imagen_hero"
-                src="/images/gengar.png"
-                alt="imagen"
-                class="w-64 md:w-80 lg:w-96 xl:w-[450px] object-contain h-auto md:translate-x-8 lg:translate-x-14"
-            />
-        </div>
-        
-        <div class="flex flex-col justify-center items-start text-left space-y-4 md:space-y-6 max-w-2xl">
-            <h1 id="H1_Hero" class="text-2xl md:text-4xl lg:text-5xl font-bold text-purple-600 bbh-sans-hegarty-regular">
-                Hola, soy Eduardo
-            </h1>
-            <p class="text-xl md:text-2xl lg:text-3xl text-white font-semibold">
-                Desarrollador Full Stack
-            </p>
-            
-            <p class="text-base md:text-lg lg:text-xl text-white leading-relaxed">
-                Apasionado por crear soluciones innovadoras y eficientes.<br>
-                Estudiante de septimo semestre de ingenieria de sistemas con experiencias en el desarrollo frontend y backend con tecnologias Web
-            </p>
-        </div>
+<div
+    id="inicio"
+    class="flex flex-col md:flex-row-reverse items-center justify-between gap-8 md:gap-16 lg:gap-24 px-8 md:px-16 lg:px-22 py-20 md:py-28 scroll-mt-24 max-w-7xl mx-auto mb-24 md:mb-32 lg:mb-40"
+>
+    <div class="flex flex-col items-center md:items-end flex-shrink-0">
+        <img
+            id="imagen_hero"
+            src="/images/gengar.png"
+            alt="Gengar con efecto neon"
+            class="w-62 md:w-80 lg:w-96 xl:w-[400px] object-contain h-auto md:translate-x-8 lg:translate-x-14 neon-glow"
+        />
     </div>
 
+    <div
+        class="flex flex-col justify-center items-start text-left space-y-4 md:space-y-6 max-w-2xl"
+    >
+        <h1
+            id="H1_Hero"
+            class="text-2xl md:text-4xl lg:text-5xl font-bold text-purple-600 bbh-sans-hegarty-regular"
+        >
+            Hola, soy Eduardo
+        </h1>
+        <p class="text-xl md:text-2xl lg:text-3xl text-white font-semibold">
+            Desarrollador Full Stack
+        </p>
 
+        <p class="text-base md:text-lg lg:text-xl text-white leading-relaxed">
+            Apasionado por crear soluciones innovadoras y eficientes.<br />
+            Estudiante de septimo semestre de ingenieria de sistemas con experiencias
+            en el desarrollo frontend y backend con tecnologias Web
+        </p>
+    </div>
+</div>
+
+<style>
+  .neon-glow {
+    filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.6))
+            drop-shadow(0 0 20px rgba(168, 85, 247, 0.4))
+            drop-shadow(0 0 30px rgba(147, 51, 234, 0.3));
+    animation: neon-pulse 3s ease-in-out infinite;
+    transition: filter 0.3s ease;
+  }
+
+  .neon-glow:hover {
+    filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.8))
+            drop-shadow(0 0 30px rgba(168, 85, 247, 0.6))
+            drop-shadow(0 0 45px rgba(147, 51, 234, 0.5));
+  }
+
+  @keyframes neon-pulse {
+    0%, 100% {
+      filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.6))
+              drop-shadow(0 0 20px rgba(168, 85, 247, 0.4))
+              drop-shadow(0 0 30px rgba(147, 51, 234, 0.3));
+    }
+    50% {
+      filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.8))
+              drop-shadow(0 0 30px rgba(168, 85, 247, 0.6))
+              drop-shadow(0 0 40px rgba(147, 51, 234, 0.4));
+    }
+  }
+</style>
 
 <script>
     import { gsap } from "gsap";
     import SplitType from "split-type";
-    
+
     function initHeroAnimations() {
         window.scrollTo(0, 0);
-        const text = new SplitType("#H1_Hero", { 
+        const text = new SplitType("#H1_Hero", {
             types: "chars",
-            tagName: "span"
+            tagName: "span",
         });
 
-        text.chars?.forEach((char, index)=> {
+        text.chars?.forEach((char, index) => {
             let charTl = gsap.timeline();
 
             charTl.from(char, {
@@ -51,7 +87,7 @@
                 rotate: gsap.utils.random(-360, 360),
                 duration: 1,
                 delay: index * 0.05,
-                ease: "back.out"
+                ease: "back.out",
             });
 
             charTl.from(
@@ -61,23 +97,22 @@
                 },
                 "-=0.35",
             );
-        });    
+        });
 
         gsap.to("#imagen_hero", {
-            scale: 1.07,
+            scale: 1.05,
             duration: 1,
             ease: "power1.inOut",
             repeat: -1,
-            yoyo: true, 
+            yoyo: true,
         });
     }
 
-    window.addEventListener('splashScreenClosed', () => {
+    window.addEventListener("splashScreenClosed", () => {
         initHeroAnimations();
     });
 
-    if (!document.getElementById('splash-screen')) {
+    if (!document.getElementById("splash-screen")) {
         initHeroAnimations();
     }
 </script>
-

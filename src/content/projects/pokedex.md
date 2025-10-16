@@ -3,7 +3,8 @@ title: "Pokedex"
 author: "Eduardo Andres Solano Rodriguez"
 description: "Aplicativo web donde se muestran mis habilidades para el desarrollo web frontend utilizando astro y consumiendo la API oficial de pokemon"
 time: "20-10-2024"
-img: ""
+img: "/images/pokedex.png"
+link: "https://pokedex-edurodev.vercel.app/"
 ---
 
 Pokedex es una aplicación web creada con Astro que demuestra habilidades en desarrollo front-end mediante el consumo de la API oficial de Pokémon. Permite explorar y buscar Pokémon, ver detalles individuales (sprites, tipos, estadísticas básicas) y navegar de forma fluida gracias a una interfaz responsiva y optimizada.

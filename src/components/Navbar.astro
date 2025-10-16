@@ -4,28 +4,29 @@
 
 <section class="flex justify-center items-center py-6">
     <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-3xl bbh-sans-hegarty-regular">
-        <div class="bg-white/90 backdrop-blur-md border border-purple-200/50 rounded-full px-8 py-4 shadow-xl shadow-purple-900/10">
+        <!-- Updated navbar background to dark theme with purple accents -->
+        <div class="bg-black/40 backdrop-blur-xl border border-purple-500/30 rounded-full px-8 py-4 shadow-2xl shadow-purple-900/40 hover:border-purple-500/50 transition-all duration-300">
             <ul class="flex flex-row justify-center items-center gap-2 text-base">
                 <li class="relative">
-                    <a class="nav-link flex items-center gap-2 text-gray-700 hover:text-purple-400 px-5 py-2 rounded-full relative" href="#inicio" data-section="inicio">
+                    <a class="nav-link flex items-center gap-2 text-gray-300 hover:text-purple-400 px-5 py-2 rounded-full relative transition-all duration-300" href="#inicio" data-section="inicio">
                         <img src="/icons/pokeball.svg" alt="Pokeball" class="pokeball-icon w-5 h-5 hidden" />
                         <span>Inicio</span>
                     </a>
                 </li>
                 <li class="relative">
-                    <a class="nav-link flex items-center gap-2 text-gray-700 hover:text-purple-400 px-5 py-2 rounded-full relative" href="#tecnologias" data-section="tecnologias">
+                    <a class="nav-link flex items-center gap-2 text-gray-300 hover:text-purple-400 px-5 py-2 rounded-full relative transition-all duration-300" href="#tecnologias" data-section="tecnologias">
                         <img src="/icons/pokeball.svg" alt="Pokeball" class="pokeball-icon w-5 h-5 hidden" />
                         <span>Tecnologias</span>
                     </a>
                 </li>
                 <li class="relative">
-                    <a class="nav-link flex items-center gap-2 text-gray-700 hover:text-purple-400 px-5 py-2 rounded-full relative" href="#proyectos" data-section="proyectos">
+                    <a class="nav-link flex items-center gap-2 text-gray-300 hover:text-purple-400 px-5 py-2 rounded-full relative transition-all duration-300" href="#proyectos" data-section="proyectos">
                         <img src="/icons/pokeball.svg" alt="Pokeball" class="pokeball-icon w-5 h-5 hidden" />
                         <span>Proyectos</span>
                     </a>
                 </li>
                 <li class="relative">
-                    <a class="nav-link flex items-center gap-2 text-gray-700 hover:text-purple-400 px-5 py-2 rounded-full relative" href="#contacto" data-section="contacto">
+                    <a class="nav-link flex items-center gap-2 text-gray-300 hover:text-purple-400 px-5 py-2 rounded-full relative transition-all duration-300" href="#contacto" data-section="contacto">
                         <img src="/icons/pokeball.svg" alt="Pokeball" class="pokeball-icon w-5 h-5 hidden" />
                         <span>Contacto</span>
                     </a>
@@ -78,15 +79,15 @@
                         pokeball.classList.remove('hidden');
                         animatePokeball(pokeball);
                     }
-                    link.classList.add('text-purple-700', 'font-bold');
-                    link.classList.remove('text-gray-700');
+                    link.classList.add('text-purple-400', 'font-bold');
+                    link.classList.remove('text-gray-300');
                 } else {
                     if (pokeball) {
                         pokeball.classList.add('hidden');
                         stopPokeballAnimation(pokeball);
                     }
-                    link.classList.remove('text-purple-700', 'font-bold');
-                    link.classList.add('text-gray-700');
+                    link.classList.remove('text-purple-400', 'font-bold');
+                    link.classList.add('text-gray-300');
                 }
             });
         }

@@ -8,6 +8,7 @@ const projects = defineCollection({
         description: z.string(),
         time: z.string(),
         img: z.string().optional(),
+        link: z.string().optional(),
     })
 })
 
