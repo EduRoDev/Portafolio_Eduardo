@@ -9,17 +9,22 @@ import  Redes  from "../components/Redes.astro";
     <div
         class="w-full gap-12 lg:gap-20 justify-center items-center flex p-6 md:p-12 lg:p-20 flex-col lg:flex-row"
     >
+    
         <form
             action="https://formspree.io/f/xwprakve"
             method="POST"
             class="w-full max-w-2xl flex flex-col gap-6 p-6 md:p-8 "
         >
-            <div class="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-2">
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-purple-600 text-start bbh-sans-hegarty-regular tracking-tight">
-                    Contacto
-                </h2>
-
-                <div class="flex-shrink-0 flex items-center justify-center">
+            <div class="w-full flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-4">
+                <div class="flex flex-col gap-3">
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-purple-600 text-start bbh-sans-hegarty-regular tracking-tight">
+                        Contacto
+                    </h2>
+                    <div class="flex justify-start">
+                        <Redes/>
+                    </div>
+                </div>
+                <div class="flex-shrink-0 flex items-center justify-center md:justify-end">
                     <img
                         id="gengar"
                         src="/images/gengar.png"
@@ -120,7 +125,6 @@ import  Redes  from "../components/Redes.astro";
 
         
     </div>
-    <Redes />
 </section>
 
 <!-- Modal de confirmación -->
